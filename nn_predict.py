@@ -3,12 +3,12 @@ import json
 
 # === Activation functions ===
 def relu(x):
-    # TODO: Implement the Rectified Linear Unit
-    return x
+    return np.maximum(0, x)
 
 def softmax(x):
-    # TODO: Implement the SoftMax function
-    return x
+    x = x - np.max(x)
+    exp_x = np.exp(x)
+    return exp_x / np.sum(exp_x)
 
 # === Flatten ===
 def flatten(x):
@@ -18,8 +18,7 @@ def flatten(x):
 def dense(x, W, b):
     return x @ W + b
 
-# Infer TensorFlow h5 model using numpy
-# Support only Dense, Flatten, relu, softmax now
+# === Forward inference function ===
 def nn_forward_h5(model_arch, weights, data):
     x = data
     for layer in model_arch:
@@ -41,8 +40,6 @@ def nn_forward_h5(model_arch, weights, data):
 
     return x
 
-
-# You are free to replace nn_forward_h5() with your own implementation 
+# === Entry point for inference ===
 def nn_inference(model_arch, weights, data):
     return nn_forward_h5(model_arch, weights, data)
-    
